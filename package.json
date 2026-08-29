@@ -1,0 +1,13 @@
+{
+  "name": "campusconnect",
+  "private": true,
+  "version": "1.0.0",
+  "description": "CampusConnect - Smart Campus Management Platform (monorepo root)",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "test:backend": "npm test --prefix backend"
+  }
+}
