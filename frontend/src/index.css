@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-ink: #12131a;
+  --color-navy: #1b2340;
+  --color-navy-light: #2a3459;
+  --color-marigold: #f5a623;
+  --color-marigold-dark: #d8890a;
+  --color-teal: #0f9d8c;
+  --color-coral: #e6533c;
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-line: #e6e8f0;
+
+  /* Module accent colors — the signature system: each module keeps one color everywhere */
+  --color-mod-feed: #6c5ce7;
+  --color-mod-complaints: #e6533c;
+  --color-mod-events: #f5a623;
+  --color-mod-clubs: #0f9d8c;
+  --color-mod-marketplace: #2f80ed;
+  --color-mod-lostfound: #d8890a;
+  --color-mod-resources: #27ae60;
+  --color-mod-opportunities: #9b51e0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-data {
+  font-family: var(--font-mono);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-marigold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
