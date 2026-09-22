@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Input from '../components/Input';
-import Button from '../components/Button';
+import { LiquidMetalButton } from '../components/ui/liquid-metal-button';
 import { ShaderBackground } from '../components/ui/plasma-shader';
 import { useAuth } from '../context/AuthContext';
 
@@ -89,14 +89,17 @@ export default function Login() {
             </Link>
           </div>
 
-          <div className="animate-fade-in-up" style={{ animationDelay: '290ms' }}>
-            <Button
-              type="submit"
-              className="w-full transition-transform duration-150 active:scale-[0.98] hover:shadow-md"
-              loading={loading}
-            >
-              Log in
-            </Button>
+          <div className="animate-fade-in-up flex justify-center" style={{ animationDelay: '290ms' }}>
+            <LiquidMetalButton
+              label={loading ? 'Logging in...' : 'Log in'}
+              onClick={() => {
+                if (!loading) {
+                  const formEvent = new Event('submit', { bubbles: true, cancelable: true });
+                  const form = document.querySelector('form');
+                  if (form) form.dispatchEvent(formEvent);
+                }
+              }}
+            />
           </div>
         </form>
 

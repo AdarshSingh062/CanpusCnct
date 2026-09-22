@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   Newspaper,
@@ -15,6 +15,7 @@ import {
 
 import { useAuth } from '../context/AuthContext';
 import { MODULE_COLORS } from '../utils/moduleColors';
+import { AnimatedBackground } from './ui/animated-background';
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, color: 'var(--color-navy)' },
@@ -31,6 +32,7 @@ const NAV = [
 
 export default function Sidebar({ mobileOpen, onClose }) {
   const { user } = useAuth();
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -90,49 +92,53 @@ export default function Sidebar({ mobileOpen, onClose }) {
         </div>
 
         {/* NAVIGATION */}
-        <nav className="flex flex-col space-y-1 px-3 pb-4 pt-4">
+        <nav className="px-3 pb-4 pt-4">
+          <AnimatedBackground
+            defaultValue={pathname}
+            className="rounded-xl bg-white/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
+            transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
+            enableHover
+          >
+            {NAV.map(({ to, label, icon: Icon, color }) => (
+              <NavLink
+                key={to}
+                to={to}
+                data-id={to}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `relative z-10 flex h-[42px] items-center gap-3 rounded-xl px-3 text-sm font-medium transition-colors duration-200 ${
+                    isActive ? 'text-white' : 'text-slate-300 hover:text-white'
+                  }`
+                }
+              >
+                <span
+                  className="h-2.5 w-2.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: color }}
+                />
 
-          {NAV.map(({ to, label, icon: Icon, color }) => (
-            <NavLink
-              key={to}
-              to={to}
-              onClick={onClose}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-white/10 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]'
-                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                }`
-              }
-            >
-              <span
-                className="h-2.5 w-2.5 shrink-0 rounded-full"
-                style={{ backgroundColor: color }}
-              />
+                <Icon size={17} />
 
-              <Icon size={17} />
+                <span>{label}</span>
+              </NavLink>
+            ))}
 
-              <span>{label}</span>
-            </NavLink>
-          ))}
-
-          {/* ADMIN */}
-          {user?.role === 'superadmin' && (
-            <NavLink
-              to="/admin"
-              onClick={onClose}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-white/10 text-white'
-                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                }`
-              }
-            >
-              <ShieldCheck size={17} />
-              <span>Admin Panel</span>
-            </NavLink>
-          )}
+            {/* ADMIN */}
+            {user?.role === 'superadmin' && (
+              <NavLink
+                to="/admin"
+                data-id="/admin"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `relative z-10 flex h-[42px] items-center gap-3 rounded-xl px-3 text-sm font-medium transition-colors duration-200 ${
+                    isActive ? 'text-white' : 'text-slate-300 hover:text-white'
+                  }`
+                }
+              >
+                <ShieldCheck size={17} />
+                <span>Admin Panel</span>
+              </NavLink>
+            )}
+          </AnimatedBackground>
 
         </nav>
 
