@@ -54,6 +54,12 @@ app.use('/api', limiter);
 
 // --- Health check ---
 app.get('/api/health', (req, res) => res.json({ success: true, message: 'CampusConnect API is running' }));
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'CampusConnect API is running',
+  });
+});
 
 // --- Routes ---
 app.use('/api/auth', authRoutes);
